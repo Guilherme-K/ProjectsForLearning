@@ -1,5 +1,8 @@
 """Sistema simples de cadastro em memória, com tratamento de erros."""
 
+import sys
+import time
+
 
 # Este banco de dados é uma lista em memória: os dados são perdidos ao fechar
 # o programa. Ele começa com alguns registros para já estar alimentado.
@@ -72,9 +75,48 @@ def exibir_por_id():
 
 def imagem_ascii():
     """Imprime um desenho em ASCII."""
-    print(r"""
- ( -_•)︻デ═一    - - - -
-""")
+    print(r"""                       -                                                        @
+ ( -_•)︻デ═一      -                        @                                 ][
+          /\                                ][                         -                    @
+                                                                                            ][
+ """)
+
+
+def animacao_ascii_legal():
+    """Mostra uma danca ASCII com movimentos e estrelas por 30 segundos."""
+    quadros = [
+        r"""
+   \o/       *
+    |       /|\\
+   / \\       |
+""",
+        r"""
+    o/      *  *
+   /|       /|\\
+   / \\       |
+""",
+        r"""
+  \\o       *
+    |\\      /|\\
+   / \\       |
+""",
+        r"""
+   \\o/    *  *
+    |\\      /|\\
+   / \\       |
+""",
+    ]
+
+    inicio = time.monotonic()
+    passo = 0
+    while time.monotonic() - inicio < 30:
+        sys.stdout.write("\033[2J\033[H")
+        sys.stdout.write("Danca ASCII!\n\n")
+        sys.stdout.write(quadros[passo % len(quadros)])
+        sys.stdout.flush()
+        passo += 1
+        tempo_restante = 30 - (time.monotonic() - inicio)
+        time.sleep(min(0.3, max(0, tempo_restante)))
 
 
 def menu():
@@ -102,6 +144,8 @@ def menu():
             exibir_por_id()
         elif opcao == 5:
             imagem_ascii()
+        elif opcao == 6:
+            animacao_ascii_legal()
         elif opcao == 0:
             print("Programa encerrado.")
             break
