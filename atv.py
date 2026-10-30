@@ -129,24 +129,24 @@ def menu():
         print("0 - SAIR")
 
         try:
-            opcao = int(input("Escolha uma opção: "))
+            opcao = input("Escolha uma opção: ")
         except ValueError:
             print("Opção inválida. Digite um número do menu.")
             continue
 
-        if opcao == 1:
+        if opcao == "1" or opcao == "inserir":
             inserir()
-        elif opcao == 2:
+        elif opcao == "2" or opcao == "excluir":
             excluir()
-        elif opcao == 3:
+        elif opcao == "3" or opcao == "exibir":
             exibir()
-        elif opcao == 4:
+        elif opcao == "4" or opcao == "exibir_por_id":
             exibir_por_id()
-        elif opcao == 5:
+        elif opcao == "5" or opcao == "imagem_ascii":
             imagem_ascii()
-        elif opcao == 6:
+        elif opcao == "6" or opcao == "animacao_ascii_legal":
             animacao_ascii_legal()
-        elif opcao == 0:
+        elif opcao == "0" or opcao == "sair":
             print("Programa encerrado.")
             break
         else:
