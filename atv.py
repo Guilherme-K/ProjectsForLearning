@@ -1,0 +1,113 @@
+"""Sistema simples de cadastro em memória, com tratamento de erros."""
+
+
+# Este banco de dados é uma lista em memória: os dados são perdidos ao fechar
+# o programa. Ele começa com alguns registros para já estar alimentado.
+banco_de_dados = [
+    {"id": 1, "nome": "Ana"},
+    {"id": 2, "nome": "Bruno"},
+    {"id": 3, "nome": "Carla"},
+]
+
+
+def inserir():
+    """Pede um nome e adiciona um novo registro ao banco."""
+    while True:
+        try:
+            nome = input("Digite o nome: ").strip()
+            if not nome:
+                raise ValueError("O nome não pode ficar vazio.")
+            if not any(caractere.isalpha() for caractere in nome):
+                raise ValueError("O nome precisa conter pelo menos uma letra.")
+
+            proximo_id = max(
+                (registro["id"] for registro in banco_de_dados), default=0
+            ) + 1
+            banco_de_dados.append({"id": proximo_id, "nome": nome})
+            print(f'Registro de {nome} inserido com o ID {proximo_id}.')
+            break
+        except ValueError as erro:
+            print(f"Não foi possível inserir: {erro} Tente novamente.")
+
+
+def excluir():
+    """Remove um registro usando o seu ID."""
+    try:
+        id_para_excluir = int(input("Digite o ID que deseja excluir: "))
+        for registro in banco_de_dados:
+            if registro["id"] == id_para_excluir:
+                banco_de_dados.remove(registro)
+                print(f"Registro de ID {id_para_excluir} excluído.")
+                return
+
+        print(f"Não existe registro com o ID {id_para_excluir}.")
+    except ValueError:
+        print("ID inválido. Digite um número inteiro.")
+
+
+def exibir():
+    """Mostra todos os registros cadastrados."""
+    if not banco_de_dados:
+        print("O banco de dados está vazio.")
+        return
+
+    print("\n--- Registros cadastrados ---")
+    for registro in banco_de_dados:
+        print(f'ID: {registro["id"]} | Nome: {registro["nome"]}')
+
+
+def exibir_por_id():
+    """Mostra um registro específico usando o seu ID."""
+    try:
+        id_pesquisado = int(input("Digite o ID que deseja consultar: "))
+        for registro in banco_de_dados:
+            if registro["id"] == id_pesquisado:
+                print(f'ID: {registro["id"]} | Nome: {registro["nome"]}')
+                return
+
+        print(f"Não existe registro com o ID {id_pesquisado}.")
+    except ValueError:
+        print("ID inválido. Digite um número inteiro.")
+
+
+def imagem_ascii():
+    """Imprime um desenho em ASCII."""
+    print(r"""
+ ( -_•)︻デ═一    - - - -
+""")
+
+
+def menu():
+    while True:
+        print("\n=== Sistema de cadastro ===")
+        print("1 - INSERIR")
+        print("2 - EXCLUIR")
+        print("3 - EXIBIR")
+        print("4 - EXIBIR POR ID")
+        print("0 - SAIR")
+
+        try:
+            opcao = int(input("Escolha uma opção: "))
+        except ValueError:
+            print("Opção inválida. Digite um número do menu.")
+            continue
+
+        if opcao == 1:
+            inserir()
+        elif opcao == 2:
+            excluir()
+        elif opcao == 3:
+            exibir()
+        elif opcao == 4:
+            exibir_por_id()
+        elif opcao == 5:
+            imagem_ascii()
+        elif opcao == 0:
+            print("Programa encerrado.")
+            break
+        else:
+            print("Opção inválida.")
+
+
+if __name__ == "__main__":
+    menu()
