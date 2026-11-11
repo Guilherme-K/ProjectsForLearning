@@ -365,7 +365,7 @@ h3 {
   transition: background 0.16s ease, color 0.16s ease;
 }
 
-.sidebar-link svg {
+.sidebar-link i {
   flex-shrink: 0;
   color: #7a8698;
   transition: color 0.16s ease;
@@ -376,7 +376,7 @@ h3 {
   color: var(--primary);
 }
 
-.sidebar-link:hover svg {
+.sidebar-link:hover i {
   color: var(--primary);
 }
 
@@ -386,7 +386,7 @@ h3 {
   font-weight: 700;
 }
 
-.sidebar-link.active svg {
+.sidebar-link.active i {
   color: var(--primary);
 }
 
@@ -1426,7 +1426,7 @@ h3 {
   line-height: 1.5;
 }
 
-.todo-tip svg {
+.todo-tip i {
   flex-shrink: 0;
   margin-top: 1px;
   color: var(--orange);
@@ -1795,7 +1795,7 @@ kbd {
   min-width: 0;
 }
 
-.input-with-icon > svg {
+.input-with-icon > i {
   position: absolute;
   left: 13px;
   top: 50%;
@@ -1880,9 +1880,9 @@ kbd {
   color: #0b6b48;
 }
 
-.error-banner svg,
-.success-banner svg,
-.form-error svg {
+.error-banner i,
+.success-banner i,
+.form-error i {
   flex-shrink: 0;
   margin-top: 1px;
 }
@@ -2001,7 +2001,7 @@ kbd {
   color: var(--muted);
 }
 
-.result-loading svg {
+.result-loading i {
   margin: 0 auto 13px;
   color: var(--primary);
 }
@@ -2144,7 +2144,7 @@ kbd {
   color: var(--muted);
 }
 
-.weather-loading svg {
+.weather-loading i {
   margin: 0 auto 13px;
   color: var(--primary);
 }
@@ -2169,7 +2169,7 @@ kbd {
   color: var(--muted);
 }
 
-.weather-empty svg {
+.weather-empty i {
   margin: 0 auto 13px;
   color: var(--primary);
   opacity: 0.7;
@@ -2507,7 +2507,7 @@ kbd {
   line-height: 1.5;
 }
 
-.auth-aside-list svg {
+.auth-aside-list i {
   flex-shrink: 0;
   margin-top: 1px;
   color: #9cc4ff;
@@ -2701,7 +2701,7 @@ kbd {
   padding: 20px;
 }
 
-.dash-card > svg {
+.dash-card > i {
   margin-bottom: 11px;
   color: var(--primary);
 }
@@ -2755,11 +2755,11 @@ kbd {
     box-shadow 0.18s ease, color 0.18s ease;
 }
 
-.dashboard-link > svg:first-child {
+.dashboard-link > i:first-child {
   color: var(--primary);
 }
 
-.dashboard-link > svg:last-child {
+.dashboard-link > i:last-child {
   margin-left: auto;
   color: #9aa5b5;
 }
@@ -3212,7 +3212,7 @@ kbd {
     padding: 0;
   }
 
-  .header-logout svg {
+  .header-logout i {
     margin: 0;
   }
 

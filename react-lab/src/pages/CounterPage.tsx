@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Minus, Plus, RotateCcw } from 'lucide-react'
 import { PageHeader } from '../components/PageHeader'
+import { Icone } from '../components/Icone'
 
 const passos = [1, 5, 10]
 
@@ -40,7 +40,7 @@ export function CounterPage() {
               onClick={() => setContador((valor) => valor - passo)}
               aria-label={`Diminuir ${passo}`}
             >
-              <Minus size={26} aria-hidden="true" />
+              <Icone nome="fa-minus" tamanho={26} />
             </button>
 
             <button
@@ -49,7 +49,7 @@ export function CounterPage() {
               onClick={() => setContador((valor) => valor + passo)}
               aria-label={`Aumentar ${passo}`}
             >
-              <Plus size={26} aria-hidden="true" />
+              <Icone nome="fa-plus" tamanho={26} />
             </button>
           </div>
 
@@ -59,7 +59,7 @@ export function CounterPage() {
             onClick={() => setContador(0)}
             disabled={contador === 0}
           >
-            <RotateCcw size={16} aria-hidden="true" />
+            <Icone nome="fa-rotate-left" tamanho={16} />
             Resetar
           </button>
 

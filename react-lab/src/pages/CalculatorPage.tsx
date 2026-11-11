@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
-import { Delete } from 'lucide-react'
 import { PageHeader } from '../components/PageHeader'
+import { Icone } from '../components/Icone'
 
 type Operador = '+' | '-' | '×' | '÷'
 
@@ -280,7 +280,7 @@ export function CalculatorPage() {
                   onClick={apagar}
                   aria-label="Apagar último dígito"
                 >
-                  <Delete size={17} aria-hidden="true" />
+                  <Icone nome="fa-delete-left" tamanho={17} />
                 </button>
               </div>
               <span

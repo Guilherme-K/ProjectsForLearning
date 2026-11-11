@@ -11,7 +11,7 @@ A identidade visual foi inspirada no portal [Sala do Futuro](https://saladofutur
 - React 19 + TypeScript
 - Vite
 - React Router
-- lucide-react (ícones)
+- Font Awesome 7 (ícones, via CDN da cdnjs)
 - Open Sans (Google Fonts)
 - CSS puro e responsivo
 

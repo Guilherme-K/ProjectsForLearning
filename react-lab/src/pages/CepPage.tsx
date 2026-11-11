@@ -1,14 +1,7 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
-import {
-  CheckCircle2,
-  CircleAlert,
-  Loader2,
-  MapPin,
-  Search,
-  X,
-} from 'lucide-react'
 import { PageHeader } from '../components/PageHeader'
+import { Icone } from '../components/Icone'
 import type { Endereco } from '../types'
 
 interface CamposEndereco {
@@ -134,7 +127,7 @@ export function CepPage() {
                 CEP
               </label>
               <div className="input-with-icon">
-                <MapPin size={18} aria-hidden="true" />
+                <Icone nome="fa-map-pin" tamanho={18} />
                 <input
                   id="cep"
                   type="text"
@@ -148,9 +141,9 @@ export function CepPage() {
               </div>
               <button type="submit" className="btn btn-primary" disabled={carregando}>
                 {carregando ? (
-                  <Loader2 size={18} className="spin" aria-hidden="true" />
+                  <Icone nome="fa-spinner" tamanho={18} className="spin" />
                 ) : (
-                  <Search size={18} aria-hidden="true" />
+                  <Icone nome="fa-magnifying-glass" tamanho={18} />
                 )}
                 Buscar
               </button>
@@ -162,7 +155,7 @@ export function CepPage() {
 
             {erro && (
               <div className="error-banner" role="alert">
-                <CircleAlert size={18} aria-hidden="true" />
+                <Icone nome="fa-circle-exclamation" tamanho={18} />
                 <span>{erro}</span>
               </div>
             )}
@@ -200,7 +193,7 @@ export function CepPage() {
           <section className="panel cep-result" aria-live="polite">
             {carregando && (
               <div className="result-loading">
-                <Loader2 size={28} className="spin" aria-hidden="true" />
+                <Icone nome="fa-spinner" tamanho={28} className="spin" />
                 <strong>Consultando a ViaCEP...</strong>
                 <p>Buscando os dados do CEP {cep}.</p>
               </div>
@@ -209,7 +202,7 @@ export function CepPage() {
             {!carregando && !endereco && (
               <div className="cep-empty">
                 <span className="empty-state-icon">
-                  <MapPin size={26} aria-hidden="true" />
+                  <Icone nome="fa-map-pin" tamanho={26} />
                 </span>
                 <strong>Nenhum endereço consultado</strong>
                 <p>Digite um CEP ao lado ou escolha uma sugestão para começar.</p>
@@ -233,12 +226,12 @@ export function CepPage() {
                     onClick={limpar}
                     aria-label="Limpar consulta"
                   >
-                    <X size={18} aria-hidden="true" />
+                    <Icone nome="fa-xmark" tamanho={18} />
                   </button>
                 </div>
 
                 <div className="success-banner">
-                  <CheckCircle2 size={18} aria-hidden="true" />
+                  <Icone nome="fa-circle-check" tamanho={18} />
                   <span>
                     Dados preenchidos automaticamente. Você pode editar os campos
                     abaixo.

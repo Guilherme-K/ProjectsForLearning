@@ -1,40 +1,25 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
-import {
-  Calculator,
-  CloudSun,
-  Hash,
-  Home,
-  LayoutDashboard,
-  ListTodo,
-  Lock,
-  LogOut,
-  MapPin,
-  Menu,
-  Sparkles,
-  UserPlus,
-  X,
-} from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
+import { Icone } from './Icone'
 
 interface LinkNavegacao {
   para: string
   rotulo: string
-  icone: LucideIcon
+  icone: string
   fim?: boolean
 }
 
 const linksPrincipais: LinkNavegacao[] = [
-  { para: '/', rotulo: 'Início', icone: Home, fim: true },
+  { para: '/', rotulo: 'Início', icone: 'fa-house', fim: true },
 ]
 
 const linksProjetos: LinkNavegacao[] = [
-  { para: '/tarefas', rotulo: 'Tarefas', icone: ListTodo },
-  { para: '/contador', rotulo: 'Contador', icone: Hash },
-  { para: '/calculadora', rotulo: 'Calculadora', icone: Calculator },
-  { para: '/cep', rotulo: 'CEP', icone: MapPin },
-  { para: '/clima', rotulo: 'Clima', icone: CloudSun },
+  { para: '/tarefas', rotulo: 'Tarefas', icone: 'fa-list-check' },
+  { para: '/contador', rotulo: 'Contador', icone: 'fa-hashtag' },
+  { para: '/calculadora', rotulo: 'Calculadora', icone: 'fa-calculator' },
+  { para: '/cep', rotulo: 'CEP', icone: 'fa-map-pin' },
+  { para: '/clima', rotulo: 'Clima', icone: 'fa-cloud-sun' },
 ]
 
 function obterIniciais(nome: string): string {
@@ -88,7 +73,7 @@ export function Layout() {
         <div className="header-inner">
           <Link to="/" className="brand" onClick={() => setMenuAberto(false)}>
             <span className="brand-mark">
-              <Sparkles size={19} aria-hidden="true" />
+              <Icone nome="fa-wand-magic-sparkles" tamanho={19} />
             </span>
             <span className="brand-text">
               <strong>Sala do Futuro</strong>
@@ -119,18 +104,18 @@ export function Layout() {
                     className="btn btn-ghost btn-sm header-logout"
                     onClick={sair}
                   >
-                    <LogOut size={15} aria-hidden="true" />
+                    <Icone nome="fa-right-from-bracket" tamanho={15} />
                     Sair
                   </button>
                 </>
               ) : (
                 <>
                   <Link to="/cadastro" className="btn btn-secondary btn-sm header-signup">
-                    <UserPlus size={15} aria-hidden="true" />
+                    <Icone nome="fa-user-plus" tamanho={15} />
                     Criar conta
                   </Link>
                   <Link to="/login" className="btn btn-primary btn-sm">
-                    <Lock size={15} aria-hidden="true" />
+                    <Icone nome="fa-lock" tamanho={15} />
                     Entrar
                   </Link>
                 </>
@@ -145,7 +130,7 @@ export function Layout() {
               aria-controls="menu-principal"
               onClick={() => setMenuAberto((aberto) => !aberto)}
             >
-              {menuAberto ? <X size={20} /> : <Menu size={20} />}
+              <Icone nome={menuAberto ? 'fa-xmark' : 'fa-bars'} tamanho={20} />
             </button>
           </div>
         </div>
@@ -167,7 +152,7 @@ export function Layout() {
         >
           <nav className="sidebar-nav" aria-label="Navegação principal">
             <span className="sidebar-label">Visão geral</span>
-            {linksPrincipais.map(({ para, rotulo, icone: Icone, fim }) => (
+            {linksPrincipais.map(({ para, rotulo, icone, fim }) => (
               <NavLink
                 key={para}
                 to={para}
@@ -176,13 +161,13 @@ export function Layout() {
                   `sidebar-link ${isActive ? 'active' : ''}`
                 }
               >
-                <Icone size={18} aria-hidden="true" />
+                <Icone nome={icone} tamanho={18} />
                 {rotulo}
               </NavLink>
             ))}
 
             <span className="sidebar-label">Projetos</span>
-            {linksProjetos.map(({ para, rotulo, icone: Icone }) => (
+            {linksProjetos.map(({ para, rotulo, icone }) => (
               <NavLink
                 key={para}
                 to={para}
@@ -190,7 +175,7 @@ export function Layout() {
                   `sidebar-link ${isActive ? 'active' : ''}`
                 }
               >
-                <Icone size={18} aria-hidden="true" />
+                <Icone nome={icone} tamanho={18} />
                 {rotulo}
               </NavLink>
             ))}
@@ -202,7 +187,7 @@ export function Layout() {
                 `sidebar-link ${isActive ? 'active' : ''}`
               }
             >
-              <LayoutDashboard size={18} aria-hidden="true" />
+              <Icone nome="fa-table-columns" tamanho={18} />
               Meu painel
             </NavLink>
           </nav>
@@ -210,12 +195,12 @@ export function Layout() {
           <div className="sidebar-footer">
             {usuario ? (
               <button type="button" className="sidebar-action" onClick={sair}>
-                <LogOut size={17} aria-hidden="true" />
+                <Icone nome="fa-right-from-bracket" tamanho={17} />
                 Encerrar sessão
               </button>
             ) : (
               <Link to="/login" className="sidebar-action">
-                <Lock size={17} aria-hidden="true" />
+                <Icone nome="fa-lock" tamanho={17} />
                 Entrar na conta
               </Link>
             )}

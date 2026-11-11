@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
-import { Lightbulb } from 'lucide-react'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
+import { Icone } from '../Icone'
 import type { Filtro, Tarefa } from '../../types'
 import { TaskFilters } from './TaskFilters'
 import { TaskForm } from './TaskForm'
@@ -119,7 +119,7 @@ export function TodoApp() {
       />
 
       <p className="todo-tip">
-        <Lightbulb size={15} aria-hidden="true" />
+        <Icone nome="fa-lightbulb" tamanho={15} />
         Suas tarefas ficam salvas neste navegador, mesmo ao recarregar a página.
       </p>
     </section>

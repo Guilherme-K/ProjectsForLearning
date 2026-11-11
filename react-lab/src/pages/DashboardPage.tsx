@@ -1,16 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
-import {
-  ArrowRight,
-  Calculator,
-  CloudSun,
-  Database,
-  KeyRound,
-  ListTodo,
-  LogOut,
-  MapPin,
-  ShieldCheck,
-} from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
+import { Icone } from '../components/Icone'
 
 function obterIniciais(nome: string): string {
   return nome
@@ -23,27 +13,27 @@ function obterIniciais(nome: string): string {
 
 const informacoes = [
   {
-    icone: ShieldCheck,
+    icone: 'fa-shield-halved',
     titulo: 'Rota privada',
     texto: 'Esta página só é exibida porque existe uma sessão ativa.',
   },
   {
-    icone: Database,
+    icone: 'fa-database',
     titulo: 'Sessão persistida',
     texto: 'O login continua válido ao recarregar a página, graças ao localStorage.',
   },
   {
-    icone: KeyRound,
+    icone: 'fa-key',
     titulo: 'Autenticação simulada',
     texto: 'Cadastro e login são validados localmente, sem backend ou API externa.',
   },
 ]
 
 const atalhos = [
-  { para: '/tarefas', rotulo: 'To-Do List', icone: ListTodo },
-  { para: '/calculadora', rotulo: 'Calculadora', icone: Calculator },
-  { para: '/cep', rotulo: 'Buscador de CEP', icone: MapPin },
-  { para: '/clima', rotulo: 'Previsão do tempo', icone: CloudSun },
+  { para: '/tarefas', rotulo: 'To-Do List', icone: 'fa-list-check' },
+  { para: '/calculadora', rotulo: 'Calculadora', icone: 'fa-calculator' },
+  { para: '/cep', rotulo: 'Buscador de CEP', icone: 'fa-map-pin' },
+  { para: '/clima', rotulo: 'Previsão do tempo', icone: 'fa-cloud-sun' },
 ]
 
 export function DashboardPage() {
@@ -67,7 +57,7 @@ export function DashboardPage() {
             </span>
             <div>
               <span className="dashboard-eyebrow">
-                <ShieldCheck size={14} aria-hidden="true" />
+                <Icone nome="fa-shield-halved" tamanho={14} />
                 Sessão protegida
               </span>
               <h1>Olá, {usuario.nome.split(' ')[0]}!</h1>
@@ -76,15 +66,15 @@ export function DashboardPage() {
           </div>
 
           <button type="button" className="btn btn-light" onClick={sair}>
-            <LogOut size={17} aria-hidden="true" />
+            <Icone nome="fa-right-from-bracket" tamanho={17} />
             Encerrar sessão
           </button>
         </section>
 
         <div className="dashboard-grid">
-          {informacoes.map(({ icone: Icone, titulo, texto }) => (
+          {informacoes.map(({ icone, titulo, texto }) => (
             <article key={titulo} className="panel dash-card">
-              <Icone size={22} aria-hidden="true" />
+              <Icone nome={icone} tamanho={22} />
               <h3>{titulo}</h3>
               <p>{texto}</p>
             </article>
@@ -96,11 +86,11 @@ export function DashboardPage() {
           <p>Aproveite a sessão ativa e visite os outros projetos do React Lab.</p>
 
           <div className="dashboard-links">
-            {atalhos.map(({ para, rotulo, icone: Icone }) => (
+            {atalhos.map(({ para, rotulo, icone }) => (
               <Link key={para} to={para} className="dashboard-link">
-                <Icone size={19} aria-hidden="true" />
+                <Icone nome={icone} tamanho={19} />
                 <span>{rotulo}</span>
-                <ArrowRight size={17} aria-hidden="true" />
+                <Icone nome="fa-arrow-right" tamanho={17} />
               </Link>
             ))}
           </div>

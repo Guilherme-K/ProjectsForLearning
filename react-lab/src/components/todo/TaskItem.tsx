@@ -1,5 +1,5 @@
-import { Check, Trash2 } from 'lucide-react'
 import type { Tarefa } from '../../types'
+import { Icone } from '../Icone'
 
 interface TaskItemProps {
   tarefa: Tarefa
@@ -20,7 +20,7 @@ export function TaskItem({ tarefa, onAlternar, onRemover }: TaskItemProps) {
         className="task-check"
         onClick={() => onAlternar(tarefa.id)}
       >
-        {tarefa.concluida && <Check size={14} strokeWidth={3} aria-hidden="true" />}
+        {tarefa.concluida && <Icone nome="fa-check" tamanho={13} />}
       </button>
 
       <button
@@ -38,7 +38,7 @@ export function TaskItem({ tarefa, onAlternar, onRemover }: TaskItemProps) {
         onClick={() => onRemover(tarefa.id)}
         aria-label={`Remover tarefa: ${tarefa.texto}`}
       >
-        <Trash2 size={17} aria-hidden="true" />
+        <Icone nome="fa-trash-can" tamanho={17} />
       </button>
     </li>
   )

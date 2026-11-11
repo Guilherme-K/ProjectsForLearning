@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import type { FormEvent } from 'react'
-import { Plus } from 'lucide-react'
+import { Icone } from '../Icone'
 
 interface TaskFormProps {
   onAdicionar: (texto: string) => void
@@ -40,7 +40,7 @@ export function TaskForm({ onAdicionar }: TaskFormProps) {
         autoComplete="off"
       />
       <button type="submit" className="btn btn-primary">
-        <Plus size={18} aria-hidden="true" />
+        <Icone nome="fa-plus" tamanho={18} />
         Adicionar
       </button>
     </form>

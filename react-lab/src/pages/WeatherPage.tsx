@@ -1,27 +1,7 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
-import {
-  CircleAlert,
-  Cloud,
-  CloudDrizzle,
-  CloudFog,
-  CloudHail,
-  CloudLightning,
-  CloudRain,
-  CloudSnow,
-  CloudSun,
-  Droplets,
-  Loader2,
-  MapPin,
-  Moon,
-  MoonStar,
-  Search,
-  Sun,
-  Thermometer,
-  Wind,
-} from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
 import { PageHeader } from '../components/PageHeader'
+import { Icone } from '../components/Icone'
 
 interface LocalClima {
   name: string
@@ -61,7 +41,7 @@ interface RespostaClima {
 
 interface InfoClima {
   descricao: string
-  icone: LucideIcon
+  icone: string
 }
 
 const cidadesSugeridas = [
@@ -76,52 +56,52 @@ function obterInfoClima(codigo: number, isDia = 1): InfoClima {
   switch (codigo) {
     case 0:
       return isDia
-        ? { descricao: 'Céu limpo', icone: Sun }
-        : { descricao: 'Noite limpa', icone: Moon }
+        ? { descricao: 'Céu limpo', icone: 'fa-sun' }
+        : { descricao: 'Noite limpa', icone: 'fa-moon' }
     case 1:
       return isDia
-        ? { descricao: 'Predominantemente limpo', icone: CloudSun }
-        : { descricao: 'Noite com poucas nuvens', icone: MoonStar }
+        ? { descricao: 'Predominantemente limpo', icone: 'fa-cloud-sun' }
+        : { descricao: 'Noite com poucas nuvens', icone: 'fa-cloud-moon' }
     case 2:
-      return { descricao: 'Parcialmente nublado', icone: CloudSun }
+      return { descricao: 'Parcialmente nublado', icone: 'fa-cloud-sun' }
     case 3:
-      return { descricao: 'Nublado', icone: Cloud }
+      return { descricao: 'Nublado', icone: 'fa-cloud' }
     case 45:
     case 48:
-      return { descricao: 'Neblina', icone: CloudFog }
+      return { descricao: 'Neblina', icone: 'fa-smog' }
     case 51:
     case 53:
     case 55:
-      return { descricao: 'Garoa', icone: CloudDrizzle }
+      return { descricao: 'Garoa', icone: 'fa-cloud-rain' }
     case 56:
     case 57:
-      return { descricao: 'Garoa congelante', icone: CloudDrizzle }
+      return { descricao: 'Garoa congelante', icone: 'fa-cloud-rain' }
     case 61:
     case 63:
     case 65:
-      return { descricao: 'Chuva', icone: CloudRain }
+      return { descricao: 'Chuva', icone: 'fa-cloud-rain' }
     case 66:
     case 67:
-      return { descricao: 'Chuva congelante', icone: CloudRain }
+      return { descricao: 'Chuva congelante', icone: 'fa-cloud-rain' }
     case 71:
     case 73:
     case 75:
     case 77:
-      return { descricao: 'Neve', icone: CloudSnow }
+      return { descricao: 'Neve', icone: 'fa-cloud-snow' }
     case 80:
     case 81:
     case 82:
-      return { descricao: 'Pancadas de chuva', icone: CloudRain }
+      return { descricao: 'Pancadas de chuva', icone: 'fa-cloud-showers-heavy' }
     case 85:
     case 86:
-      return { descricao: 'Pancadas de neve', icone: CloudSnow }
+      return { descricao: 'Pancadas de neve', icone: 'fa-cloud-snow' }
     case 95:
-      return { descricao: 'Tempestade', icone: CloudLightning }
+      return { descricao: 'Tempestade', icone: 'fa-cloud-bolt' }
     case 96:
     case 99:
-      return { descricao: 'Tempestade com granizo', icone: CloudHail }
+      return { descricao: 'Tempestade com granizo', icone: 'fa-cloud-showers-heavy' }
     default:
-      return { descricao: 'Condição não identificada', icone: Cloud }
+      return { descricao: 'Condição não identificada', icone: 'fa-cloud' }
   }
 }
 
@@ -203,7 +183,6 @@ export function WeatherPage() {
   const infoAtual = clima
     ? obterInfoClima(clima.current.weather_code, clima.current.is_day)
     : null
-  const IconeAtual = infoAtual?.icone
 
   return (
     <div className="page">
@@ -220,7 +199,7 @@ export function WeatherPage() {
             Nome da cidade
           </label>
           <div className="input-with-icon">
-            <MapPin size={18} aria-hidden="true" />
+            <Icone nome="fa-map-pin" tamanho={18} />
             <input
               id="cidade"
               type="text"
@@ -235,9 +214,9 @@ export function WeatherPage() {
           </div>
           <button type="submit" className="btn btn-primary" disabled={carregando}>
             {carregando ? (
-              <Loader2 size={18} className="spin" aria-hidden="true" />
+              <Icone nome="fa-spinner" tamanho={18} className="spin" />
             ) : (
-              <Search size={18} aria-hidden="true" />
+              <Icone nome="fa-magnifying-glass" tamanho={18} />
             )}
             Buscar clima
           </button>
@@ -262,14 +241,14 @@ export function WeatherPage() {
 
         {erro && (
           <div className="error-banner weather-error" role="alert">
-            <CircleAlert size={18} aria-hidden="true" />
+            <Icone nome="fa-circle-exclamation" tamanho={18} />
             <span>{erro}</span>
           </div>
         )}
 
         {carregando && (
           <div className="panel weather-loading" aria-live="polite">
-            <Loader2 size={30} className="spin" aria-hidden="true" />
+            <Icone nome="fa-spinner" tamanho={30} className="spin" />
             <strong>Consultando o clima...</strong>
             <p>Buscando a cidade e montando a previsão dos próximos dias.</p>
           </div>
@@ -277,7 +256,7 @@ export function WeatherPage() {
 
         {!carregando && !clima && !erro && (
           <div className="weather-empty">
-            <CloudSun size={56} aria-hidden="true" />
+            <Icone nome="fa-cloud-sun" tamanho={56} />
             <strong>Qual é o clima por aí?</strong>
             <p>
               Busque uma cidade acima ou escolha uma das sugestões para começar.
@@ -285,13 +264,13 @@ export function WeatherPage() {
           </div>
         )}
 
-        {!carregando && clima && local && infoAtual && IconeAtual && (
+        {!carregando && clima && local && infoAtual && (
           <>
             <section className="weather-current" aria-label="Clima atual">
               <div className="weather-main">
                 <div>
                   <span className="weather-location">
-                    <MapPin size={15} aria-hidden="true" />
+                    <Icone nome="fa-map-pin" tamanho={15} />
                     {local.name}
                     {local.admin1 ? `, ${local.admin1}` : ''}
                     {local.country ? ` · ${local.country}` : ''}
@@ -303,7 +282,7 @@ export function WeatherPage() {
                   </div>
 
                   <p className="weather-desc">
-                    <IconeAtual size={22} aria-hidden="true" />
+                    <Icone nome={infoAtual.icone} tamanho={22} />
                     {infoAtual.descricao}
                   </p>
 
@@ -313,14 +292,14 @@ export function WeatherPage() {
                 </div>
 
                 <div className="weather-art" aria-hidden="true">
-                  <IconeAtual size={112} strokeWidth={1.25} />
+                  <Icone nome={infoAtual.icone} tamanho={112} />
                 </div>
               </div>
 
               <div className="weather-details">
                 <div className="weather-detail">
                   <span className="weather-detail-label">
-                    <Thermometer size={15} aria-hidden="true" />
+                    <Icone nome="fa-temperature-half" tamanho={15} />
                     Sensação
                   </span>
                   <strong>{Math.round(clima.current.apparent_temperature)}°C</strong>
@@ -328,7 +307,7 @@ export function WeatherPage() {
 
                 <div className="weather-detail">
                   <span className="weather-detail-label">
-                    <Droplets size={15} aria-hidden="true" />
+                    <Icone nome="fa-droplet" tamanho={15} />
                     Umidade
                   </span>
                   <strong>{clima.current.relative_humidity_2m}%</strong>
@@ -336,7 +315,7 @@ export function WeatherPage() {
 
                 <div className="weather-detail">
                   <span className="weather-detail-label">
-                    <Wind size={15} aria-hidden="true" />
+                    <Icone nome="fa-wind" tamanho={15} />
                     Vento
                   </span>
                   <strong>{Math.round(clima.current.wind_speed_10m)} km/h</strong>
@@ -344,7 +323,7 @@ export function WeatherPage() {
 
                 <div className="weather-detail">
                   <span className="weather-detail-label">
-                    <CloudRain size={15} aria-hidden="true" />
+                    <Icone nome="fa-cloud-rain" tamanho={15} />
                     Chuva
                   </span>
                   <strong>{clima.current.precipitation} mm</strong>
@@ -364,17 +343,16 @@ export function WeatherPage() {
                     clima.daily.weather_code[indice] ?? 0,
                     1,
                   )
-                  const IconeDia = infoDia.icone
 
                   return (
                     <article key={dia} className="forecast-card">
                       <span className="forecast-day">
                         {formatarDia(dia, indice)}
                       </span>
-                      <IconeDia
-                        size={28}
+                      <Icone
+                        nome={infoDia.icone}
+                        tamanho={28}
                         className="forecast-icon"
-                        aria-hidden="true"
                       />
                       <span className="forecast-desc">{infoDia.descricao}</span>
                       <div className="forecast-temps">

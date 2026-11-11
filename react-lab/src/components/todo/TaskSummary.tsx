@@ -1,4 +1,4 @@
-import { Trash2 } from 'lucide-react'
+import { Icone } from '../Icone'
 
 interface TaskSummaryProps {
   total: number
@@ -37,7 +37,7 @@ export function TaskSummary({
         onClick={onLimparConcluidas}
         disabled={concluidas === 0}
       >
-        <Trash2 size={15} aria-hidden="true" />
+        <Icone nome="fa-trash-can" tamanho={15} />
         Limpar concluídas
       </button>
     </div>

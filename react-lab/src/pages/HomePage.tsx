@@ -1,36 +1,19 @@
 import { Link } from 'react-router-dom'
-import {
-  ArrowRight,
-  Calculator,
-  Check,
-  CheckCircle2,
-  CloudSun,
-  Compass,
-  ExternalLink,
-  GraduationCap,
-  Hash,
-  Layers,
-  ListTodo,
-  MapPin,
-  ShieldCheck,
-  Sparkles,
-  Wifi,
-} from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
+import { Icone } from '../components/Icone'
 
 interface Recurso {
   para: string
   titulo: string
   descricao: string
   nivel: 'Iniciante' | 'Intermediário' | 'Avançado'
-  icone: LucideIcon
+  icone: string
   tom: string
 }
 
 interface Indicador {
   valor: string
   rotulo: string
-  icone: LucideIcon
+  icone: string
   tom: string
 }
 
@@ -41,7 +24,7 @@ const recursos: Recurso[] = [
     descricao:
       'Adicione, conclua, remova e filtre tarefas. O projeto principal para dominar useState, componentes e eventos.',
     nivel: 'Iniciante',
-    icone: ListTodo,
+    icone: 'fa-list-check',
     tom: 'blue',
   },
   {
@@ -50,7 +33,7 @@ const recursos: Recurso[] = [
     descricao:
       'Incremente, decremente e reinicie um valor. O exercício mais direto para entender o estado no React.',
     nivel: 'Iniciante',
-    icone: Hash,
+    icone: 'fa-hashtag',
     tom: 'teal',
   },
   {
@@ -59,7 +42,7 @@ const recursos: Recurso[] = [
     descricao:
       'Operações encadeadas, porcentagem e suporte ao teclado, com toda a lógica matemática em TypeScript.',
     nivel: 'Iniciante',
-    icone: Calculator,
+    icone: 'fa-calculator',
     tom: 'green',
   },
   {
@@ -68,7 +51,7 @@ const recursos: Recurso[] = [
     descricao:
       'Consulte a API ViaCEP, trate erros e preencha automaticamente os campos de endereço.',
     nivel: 'Intermediário',
-    icone: MapPin,
+    icone: 'fa-map-pin',
     tom: 'orange',
   },
   {
@@ -77,7 +60,7 @@ const recursos: Recurso[] = [
     descricao:
       'Busque a cidade, consulte dados atuais e veja a previsão de cinco dias com a API Open-Meteo.',
     nivel: 'Intermediário',
-    icone: CloudSun,
+    icone: 'fa-cloud-sun',
     tom: 'cyan',
   },
   {
@@ -86,16 +69,26 @@ const recursos: Recurso[] = [
     descricao:
       'Cadastro, login, contexto de autenticação e rotas privadas com redirecionamento inteligente.',
     nivel: 'Avançado',
-    icone: ShieldCheck,
+    icone: 'fa-shield-halved',
     tom: 'navy',
   },
 ]
 
 const indicadores: Indicador[] = [
-  { valor: '6', rotulo: 'Projetos práticos', icone: Layers, tom: 'blue' },
-  { valor: '3', rotulo: 'Níveis de desafio', icone: GraduationCap, tom: 'teal' },
-  { valor: '2', rotulo: 'APIs públicas', icone: Wifi, tom: 'green' },
-  { valor: '100%', rotulo: 'Salvo no navegador', icone: ShieldCheck, tom: 'orange' },
+  { valor: '6', rotulo: 'Projetos práticos', icone: 'fa-layer-group', tom: 'blue' },
+  {
+    valor: '3',
+    rotulo: 'Níveis de desafio',
+    icone: 'fa-graduation-cap',
+    tom: 'teal',
+  },
+  { valor: '2', rotulo: 'APIs públicas', icone: 'fa-wifi', tom: 'green' },
+  {
+    valor: '100%',
+    rotulo: 'Salvo no navegador',
+    icone: 'fa-shield-halved',
+    tom: 'orange',
+  },
 ]
 
 function classeDoNivel(nivel: Recurso['nivel']): string {
@@ -121,7 +114,7 @@ export function HomePage() {
         <section className="welcome">
           <div className="welcome-content">
             <span className="eyebrow">
-              <Sparkles size={14} aria-hidden="true" />
+              <Icone nome="fa-wand-magic-sparkles" tamanho={14} />
               Sala do Futuro · React Lab
             </span>
 
@@ -137,7 +130,7 @@ export function HomePage() {
             <div className="hero-actions">
               <Link to="/tarefas" className="btn btn-primary">
                 Começar pela To-Do List
-                <ArrowRight size={17} aria-hidden="true" />
+                <Icone nome="fa-arrow-right" tamanho={17} />
               </Link>
               <a href="#recursos" className="btn btn-secondary">
                 Explorar projetos
@@ -147,7 +140,7 @@ export function HomePage() {
 
           <div className="welcome-card" aria-label="Resumo da trilha">
             <span className="welcome-card-icon">
-              <Compass size={22} aria-hidden="true" />
+              <Icone nome="fa-compass" tamanho={22} />
             </span>
             <strong>Sua trilha de aprendizagem</strong>
             <p>6 projetos guiados, do useState às rotas protegidas.</p>
@@ -162,10 +155,10 @@ export function HomePage() {
         </section>
 
         <section className="stat-row" aria-label="Resumo do laboratório">
-          {indicadores.map(({ valor, rotulo, icone: Icone, tom }) => (
+          {indicadores.map(({ valor, rotulo, icone, tom }) => (
             <article key={rotulo} className="stat-card">
               <span className={`stat-icon tone-${tom}`}>
-                <Icone size={20} aria-hidden="true" />
+                <Icone nome={icone} tamanho={20} />
               </span>
               <div>
                 <strong>{valor}</strong>
@@ -178,7 +171,7 @@ export function HomePage() {
         <section className="portal-hero">
           <div className="portal-hero-content">
             <span className="portal-badge">
-              <Sparkles size={14} aria-hidden="true" />
+              <Icone nome="fa-wand-magic-sparkles" tamanho={14} />
               Trilha em destaque
             </span>
             <h2>Comece pela To-Do List e evolua até rotas protegidas</h2>
@@ -189,7 +182,7 @@ export function HomePage() {
             </p>
             <Link to="/tarefas" className="btn btn-light">
               Abrir To-Do List
-              <ArrowRight size={17} aria-hidden="true" />
+              <Icone nome="fa-arrow-right" tamanho={17} />
             </Link>
           </div>
 
@@ -201,13 +194,13 @@ export function HomePage() {
             </div>
             <div className="preview-item done">
               <span className="mini-check">
-                <Check size={13} strokeWidth={3} />
+                <Icone nome="fa-check" tamanho={11} />
               </span>
               <span>Estudar useState</span>
             </div>
             <div className="preview-item done">
               <span className="mini-check">
-                <Check size={13} strokeWidth={3} />
+                <Icone nome="fa-check" tamanho={11} />
               </span>
               <span>Componentizar a lista</span>
             </div>
@@ -232,10 +225,10 @@ export function HomePage() {
           </div>
 
           <div className="feature-grid">
-            {recursos.map(({ para, titulo, descricao, nivel, icone: Icone, tom }) => (
+            {recursos.map(({ para, titulo, descricao, nivel, icone, tom }) => (
               <Link key={para} to={para} className="feature-card">
                 <span className={`feature-icon tone-${tom}`}>
-                  <Icone size={22} aria-hidden="true" />
+                  <Icone nome={icone} tamanho={22} />
                 </span>
 
                 <div>
@@ -247,10 +240,10 @@ export function HomePage() {
                   <span className={`level-badge level-${classeDoNivel(nivel)}`}>
                     {nivel}
                   </span>
-                  <ArrowRight
-                    size={18}
+                  <Icone
+                    nome="fa-arrow-right"
+                    tamanho={18}
                     className="feature-arrow"
-                    aria-hidden="true"
                   />
                 </div>
               </Link>
@@ -260,7 +253,7 @@ export function HomePage() {
 
         <section className="inspiration-note">
           <span className="inspiration-icon">
-            <Compass size={22} aria-hidden="true" />
+            <Icone nome="fa-compass" tamanho={22} />
           </span>
           <div>
             <strong>Inspirado na Sala do Futuro</strong>
@@ -277,7 +270,7 @@ export function HomePage() {
             rel="noreferrer"
           >
             Visitar portal
-            <ExternalLink size={15} aria-hidden="true" />
+            <Icone nome="fa-arrow-up-right-from-square" tamanho={15} />
           </a>
         </section>
 
@@ -290,7 +283,7 @@ export function HomePage() {
             </span>
           ))}
           <span className="stack-check">
-            <CheckCircle2 size={15} aria-hidden="true" />
+            <Icone nome="fa-circle-check" tamanho={15} />
             APIs públicas sem chave
           </span>
         </div>

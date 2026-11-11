@@ -1,11 +1,11 @@
-import { Database, ShieldCheck, Sparkles } from 'lucide-react'
+import { Icone } from './Icone'
 
 export function AuthAside() {
   return (
     <aside className="auth-aside">
       <div className="auth-aside-brand">
         <span className="brand-mark">
-          <Sparkles size={19} aria-hidden="true" />
+          <Icone nome="fa-wand-magic-sparkles" tamanho={19} />
         </span>
         <span>
           <strong>Sala do Futuro</strong>
@@ -23,15 +23,15 @@ export function AuthAside() {
 
         <ul className="auth-aside-list">
           <li>
-            <ShieldCheck size={18} aria-hidden="true" />
+            <Icone nome="fa-shield-halved" tamanho={18} />
             Rota privada com redirecionamento inteligente
           </li>
           <li>
-            <Database size={18} aria-hidden="true" />
+            <Icone nome="fa-database" tamanho={18} />
             Sessão salva no navegador via localStorage
           </li>
           <li>
-            <Sparkles size={18} aria-hidden="true" />
+            <Icone nome="fa-wand-magic-sparkles" tamanho={18} />
             Autenticação simulada, sem backend
           </li>
         </ul>

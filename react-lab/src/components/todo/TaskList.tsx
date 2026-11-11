@@ -1,5 +1,5 @@
-import { CheckCheck, ClipboardList } from 'lucide-react'
 import type { Filtro, Tarefa } from '../../types'
+import { Icone } from '../Icone'
 import { TaskItem } from './TaskItem'
 
 interface TaskListProps {
@@ -11,33 +11,33 @@ interface TaskListProps {
 
 const mensagens: Record<
   Filtro,
-  { titulo: string; descricao: string; icone: typeof ClipboardList }
+  { titulo: string; descricao: string; icone: string }
 > = {
   todas: {
     titulo: 'Sua lista está vazia',
     descricao: 'Adicione a primeira tarefa usando o campo acima.',
-    icone: ClipboardList,
+    icone: 'fa-clipboard-list',
   },
   pendentes: {
     titulo: 'Tudo em dia!',
     descricao: 'Você não tem nenhuma tarefa pendente no momento.',
-    icone: CheckCheck,
+    icone: 'fa-check-double',
   },
   concluidas: {
     titulo: 'Nada concluído ainda',
     descricao: 'Marque uma tarefa como concluída para vê-la aqui.',
-    icone: CheckCheck,
+    icone: 'fa-check-double',
   },
 }
 
 export function TaskList({ tarefas, filtro, onAlternar, onRemover }: TaskListProps) {
   if (tarefas.length === 0) {
-    const { titulo, descricao, icone: Icone } = mensagens[filtro]
+    const { titulo, descricao, icone } = mensagens[filtro]
 
     return (
       <div className="empty-state">
         <span className="empty-state-icon">
-          <Icone size={26} aria-hidden="true" />
+          <Icone nome={icone} tamanho={26} />
         </span>
         <strong>{titulo}</strong>
         <p>{descricao}</p>
