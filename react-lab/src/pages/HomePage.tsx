@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 import { Icone } from '../components/Icone'
 
 interface Recurso {
@@ -108,6 +109,8 @@ const tecnologias = [
 ]
 
 export function HomePage() {
+  const { usuario } = useAuth()
+
   return (
     <div className="home">
       <div className="container">
@@ -128,10 +131,21 @@ export function HomePage() {
             </p>
 
             <div className="hero-actions">
-              <Link to="/tarefas" className="btn btn-primary">
-                Começar pela To-Do List
-                <Icone nome="fa-arrow-right" tamanho={17} />
-              </Link>
+              {usuario ? (
+                <Link to="/tarefas" className="btn btn-primary">
+                  Começar pela To-Do List
+                  <Icone nome="fa-arrow-right" tamanho={17} />
+                </Link>
+              ) : (
+                <Link
+                  to="/login"
+                  state={{ de: '/tarefas' }}
+                  className="btn btn-primary"
+                >
+                  <Icone nome="fa-lock" tamanho={16} />
+                  Entrar para começar
+                </Link>
+              )}
               <a href="#recursos" className="btn btn-secondary">
                 Explorar projetos
               </a>
@@ -180,34 +194,57 @@ export function HomePage() {
               diferente de conceitos: estado, componentes, eventos, APIs e
               autenticação.
             </p>
-            <Link to="/tarefas" className="btn btn-light">
-              Abrir To-Do List
-              <Icone nome="fa-arrow-right" tamanho={17} />
-            </Link>
+            {usuario ? (
+              <Link to="/tarefas" className="btn btn-light">
+                Abrir To-Do List
+                <Icone nome="fa-arrow-right" tamanho={17} />
+              </Link>
+            ) : (
+              <Link
+                to="/login"
+                state={{ de: '/tarefas' }}
+                className="btn btn-light"
+              >
+                <Icone nome="fa-lock" tamanho={16} />
+                Entrar para acessar
+              </Link>
+            )}
           </div>
 
           <div className="portal-hero-panel" aria-hidden="true">
-            <div className="preview-head">
-              <span className="preview-dot" />
-              Minhas tarefas
-              <span className="preview-badge">3</span>
-            </div>
-            <div className="preview-item done">
-              <span className="mini-check">
-                <Icone nome="fa-check" tamanho={11} />
-              </span>
-              <span>Estudar useState</span>
-            </div>
-            <div className="preview-item done">
-              <span className="mini-check">
-                <Icone nome="fa-check" tamanho={11} />
-              </span>
-              <span>Componentizar a lista</span>
-            </div>
-            <div className="preview-item">
-              <span className="mini-check" />
-              <span>Consumir a API ViaCEP</span>
-            </div>
+            {usuario ? (
+              <>
+                <div className="preview-head">
+                  <span className="preview-dot" />
+                  Minhas tarefas
+                  <span className="preview-badge">3</span>
+                </div>
+                <div className="preview-item done">
+                  <span className="mini-check">
+                    <Icone nome="fa-check" tamanho={11} />
+                  </span>
+                  <span>Estudar useState</span>
+                </div>
+                <div className="preview-item done">
+                  <span className="mini-check">
+                    <Icone nome="fa-check" tamanho={11} />
+                  </span>
+                  <span>Componentizar a lista</span>
+                </div>
+                <div className="preview-item">
+                  <span className="mini-check" />
+                  <span>Consumir a API ViaCEP</span>
+                </div>
+              </>
+            ) : (
+              <div className="preview-locked">
+                <span className="preview-locked-icon">
+                  <Icone nome="fa-lock" tamanho={22} />
+                </span>
+                <strong>Atividades protegidas</strong>
+                <p>Entre para visualizar suas tarefas.</p>
+              </div>
+            )}
           </div>
         </section>
 
@@ -215,40 +252,78 @@ export function HomePage() {
           <div className="section-head">
             <div>
               <span className="section-kicker">Projetos</span>
-              <h2>Escolha um projeto e comece</h2>
+              <h2>
+                {usuario
+                  ? 'Escolha um projeto e comece'
+                  : 'Atividades liberadas após o login'}
+              </h2>
               <p>
-                Cada página funciona de verdade e explora um conjunto diferente de
-                conceitos.
+                {usuario
+                  ? 'Cada página funciona de verdade e explora um conjunto diferente de conceitos.'
+                  : 'Entre na sua conta para acessar a To-Do List, o contador, a calculadora, o CEP e o clima.'}
               </p>
             </div>
-            <span className="section-count">6 projetos disponíveis</span>
+            <span className="section-count">
+              {usuario ? '6 projetos disponíveis' : 'Acesso restrito'}
+            </span>
           </div>
 
-          <div className="feature-grid">
-            {recursos.map(({ para, titulo, descricao, nivel, icone, tom }) => (
-              <Link key={para} to={para} className="feature-card">
-                <span className={`feature-icon tone-${tom}`}>
-                  <Icone nome={icone} tamanho={22} />
-                </span>
-
-                <div>
-                  <h3>{titulo}</h3>
-                  <p>{descricao}</p>
-                </div>
-
-                <div className="feature-meta">
-                  <span className={`level-badge level-${classeDoNivel(nivel)}`}>
-                    {nivel}
+          {usuario ? (
+            <div className="feature-grid">
+              {recursos.map(({ para, titulo, descricao, nivel, icone, tom }) => (
+                <Link key={para} to={para} className="feature-card">
+                  <span className={`feature-icon tone-${tom}`}>
+                    <Icone nome={icone} tamanho={22} />
                   </span>
-                  <Icone
-                    nome="fa-arrow-right"
-                    tamanho={18}
-                    className="feature-arrow"
-                  />
-                </div>
-              </Link>
-            ))}
-          </div>
+
+                  <div>
+                    <h3>{titulo}</h3>
+                    <p>{descricao}</p>
+                  </div>
+
+                  <div className="feature-meta">
+                    <span className={`level-badge level-${classeDoNivel(nivel)}`}>
+                      {nivel}
+                    </span>
+                    <Icone
+                      nome="fa-arrow-right"
+                      tamanho={18}
+                      className="feature-arrow"
+                    />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="panel access-gate">
+              <span className="access-gate-icon">
+                <Icone nome="fa-lock" tamanho={26} />
+              </span>
+              <h3>Entre para acessar as atividades</h3>
+              <p>
+                As atividades do React Lab ficam disponíveis apenas com uma sessão
+                ativa. Crie sua conta gratuitamente ou use a conta de demonstração.
+              </p>
+              <div className="access-gate-actions">
+                <Link
+                  to="/login"
+                  state={{ de: '/tarefas' }}
+                  className="btn btn-primary"
+                >
+                  <Icone nome="fa-lock" tamanho={16} />
+                  Entrar
+                </Link>
+                <Link to="/cadastro" className="btn btn-secondary">
+                  <Icone nome="fa-user-plus" tamanho={16} />
+                  Criar conta
+                </Link>
+              </div>
+              <span className="access-gate-note">
+                <Icone nome="fa-circle-info" tamanho={14} />
+                Conta de demonstração: demo@reactlab.dev · senha 123456
+              </span>
+            </div>
+          )}
         </section>
 
         <section className="inspiration-note">

@@ -6,6 +6,8 @@ O projeto principal é a **To-Do List interativa**, construída com `useState`, 
 
 A identidade visual foi inspirada no portal [Sala do Futuro](https://saladofuturo.educacao.sp.gov.br/), da Secretaria da Educação do Estado de São Paulo: header branco, menu lateral, cards claros, azul institucional e tipografia Open Sans. Todo o conteúdo, os textos e os projetos são originais deste laboratório de estudos.
 
+As atividades só ficam disponíveis com uma sessão ativa: sem login, a home exibe um convite para entrar e as rotas dos projetos redirecionam para `/login`, voltando ao destino original após a autenticação.
+
 ## Stack
 
 - React 19 + TypeScript
@@ -18,7 +20,7 @@ A identidade visual foi inspirada no portal [Sala do Futuro](https://saladofutur
 ## Design
 
 - Header fixo de 64px com marca, contexto e controles de conta.
-- Menu lateral com atalhos para todos os projetos e para o painel protegido; em telas menores ele vira uma gaveta com overlay.
+- Menu lateral com atalhos para os projetos e para o painel, liberados após o login; em telas menores ele vira uma gaveta com overlay.
 - Paleta baseada no portal: fundo `#F4F5F7`, texto `#183B56`, azul `#1565D8` e teal `#3091B1`.
 - Cards com raio de 12–16px, sombras discretas e estados de foco acessíveis.
 - Layout testado em 320, 375, 768, 1024 e 1440px, sem rolagem horizontal.
@@ -107,18 +109,20 @@ Também é possível criar uma conta nova em `/cadastro`.
 
 ## Rotas
 
-| Rota           | Página                          |
-| -------------- | ------------------------------- |
-| `/`            | Início com visão geral          |
-| `/tarefas`     | To-Do List interativa           |
-| `/contador`    | Contador com passos             |
-| `/calculadora` | Calculadora funcional           |
-| `/cep`         | Buscador de CEP (ViaCEP)        |
-| `/clima`       | Previsão do tempo (Open-Meteo)  |
-| `/login`       | Login                           |
-| `/cadastro`    | Cadastro                        |
-| `/dashboard`   | Dashboard protegido             |
-| `*`            | Página 404                      |
+As rotas de atividades e o dashboard são protegidas por `ProtectedRoute`. Sem sessão ativa, o acesso redireciona para `/login` e retorna ao destino original após a autenticação.
+
+| Rota           | Página                          | Acesso    |
+| -------------- | ------------------------------- | --------- |
+| `/`            | Início com visão geral          | Pública   |
+| `/tarefas`     | To-Do List interativa           | Protegida |
+| `/contador`    | Contador com passos             | Protegida |
+| `/calculadora` | Calculadora funcional           | Protegida |
+| `/cep`         | Buscador de CEP (ViaCEP)        | Protegida |
+| `/clima`       | Previsão do tempo (Open-Meteo)  | Protegida |
+| `/login`       | Login                           | Pública   |
+| `/cadastro`    | Cadastro                        | Pública   |
+| `/dashboard`   | Dashboard protegido             | Protegida |
+| `*`            | Página 404                      | Pública   |
 
 ## Estrutura
 

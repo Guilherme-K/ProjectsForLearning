@@ -166,30 +166,46 @@ export function Layout() {
               </NavLink>
             ))}
 
-            <span className="sidebar-label">Projetos</span>
-            {linksProjetos.map(({ para, rotulo, icone }) => (
-              <NavLink
-                key={para}
-                to={para}
-                className={({ isActive }) =>
-                  `sidebar-link ${isActive ? 'active' : ''}`
-                }
-              >
-                <Icone nome={icone} tamanho={18} />
-                {rotulo}
-              </NavLink>
-            ))}
+            {usuario ? (
+              <>
+                <span className="sidebar-label">Projetos</span>
+                {linksProjetos.map(({ para, rotulo, icone }) => (
+                  <NavLink
+                    key={para}
+                    to={para}
+                    className={({ isActive }) =>
+                      `sidebar-link ${isActive ? 'active' : ''}`
+                    }
+                  >
+                    <Icone nome={icone} tamanho={18} />
+                    {rotulo}
+                  </NavLink>
+                ))}
 
-            <span className="sidebar-label">Conta</span>
-            <NavLink
-              to="/dashboard"
-              className={({ isActive }) =>
-                `sidebar-link ${isActive ? 'active' : ''}`
-              }
-            >
-              <Icone nome="fa-table-columns" tamanho={18} />
-              Meu painel
-            </NavLink>
+                <span className="sidebar-label">Conta</span>
+                <NavLink
+                  to="/dashboard"
+                  className={({ isActive }) =>
+                    `sidebar-link ${isActive ? 'active' : ''}`
+                  }
+                >
+                  <Icone nome="fa-table-columns" tamanho={18} />
+                  Meu painel
+                </NavLink>
+              </>
+            ) : (
+              <div className="sidebar-locked">
+                <span className="sidebar-locked-icon">
+                  <Icone nome="fa-lock" tamanho={18} />
+                </span>
+                <strong>Atividades bloqueadas</strong>
+                <p>Entre na sua conta para liberar os projetos do laboratório.</p>
+                <Link to="/login" className="btn btn-primary btn-sm">
+                  <Icone nome="fa-lock" tamanho={14} />
+                  Entrar para começar
+                </Link>
+              </div>
+            )}
           </nav>
 
           <div className="sidebar-footer">
@@ -199,9 +215,9 @@ export function Layout() {
                 Encerrar sessão
               </button>
             ) : (
-              <Link to="/login" className="sidebar-action">
-                <Icone nome="fa-lock" tamanho={17} />
-                Entrar na conta
+              <Link to="/cadastro" className="sidebar-action">
+                <Icone nome="fa-user-plus" tamanho={17} />
+                Criar uma conta
               </Link>
             )}
             <p className="sidebar-note">

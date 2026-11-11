@@ -20,15 +20,15 @@ export default function App() {
         <Routes>
           <Route element={<Layout />}>
             <Route index element={<HomePage />} />
-            <Route path="tarefas" element={<TodoPage />} />
-            <Route path="contador" element={<CounterPage />} />
-            <Route path="calculadora" element={<CalculatorPage />} />
-            <Route path="cep" element={<CepPage />} />
-            <Route path="clima" element={<WeatherPage />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="cadastro" element={<RegisterPage />} />
 
             <Route element={<ProtectedRoute />}>
+              <Route path="tarefas" element={<TodoPage />} />
+              <Route path="contador" element={<CounterPage />} />
+              <Route path="calculadora" element={<CalculatorPage />} />
+              <Route path="cep" element={<CepPage />} />
+              <Route path="clima" element={<WeatherPage />} />
               <Route path="dashboard" element={<DashboardPage />} />
             </Route>
 
