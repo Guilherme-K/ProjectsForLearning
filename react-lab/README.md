@@ -1,8 +1,10 @@
-# React Lab — Projetos com React + TypeScript
+# Sala do Futuro · React Lab — Projetos com React + TypeScript
 
 Aplicação de estudo que reúne os três níveis pedidos no desafio: **iniciante**, **intermediário** e **avançado**. Todos os projetos funcionam de verdade, com layout responsivo e persistência local quando faz sentido.
 
 O projeto principal é a **To-Do List interativa**, construída com `useState`, componentização, renderização de listas com `.map()` e manipulação de eventos.
+
+A identidade visual foi inspirada no portal [Sala do Futuro](https://saladofuturo.educacao.sp.gov.br/), da Secretaria da Educação do Estado de São Paulo: header branco, menu lateral, cards claros, azul institucional e tipografia Open Sans. Todo o conteúdo, os textos e os projetos são originais deste laboratório de estudos.
 
 ## Stack
 
@@ -10,7 +12,16 @@ O projeto principal é a **To-Do List interativa**, construída com `useState`, 
 - Vite
 - React Router
 - lucide-react (ícones)
+- Open Sans (Google Fonts)
 - CSS puro e responsivo
+
+## Design
+
+- Header fixo de 64px com marca, contexto e controles de conta.
+- Menu lateral com atalhos para todos os projetos e para o painel protegido; em telas menores ele vira uma gaveta com overlay.
+- Paleta baseada no portal: fundo `#F4F5F7`, texto `#183B56`, azul `#1565D8` e teal `#3091B1`.
+- Cards com raio de 12–16px, sombras discretas e estados de foco acessíveis.
+- Layout testado em 320, 375, 768, 1024 e 1440px, sem rolagem horizontal.
 
 ## Como rodar
 
@@ -82,7 +93,7 @@ Componentes separados: `TaskForm`, `TaskFilters`, `TaskList`, `TaskItem` e `Task
 - Login com simulação de requisição assíncrona.
 - Sessão persistida em `localStorage` (`react-lab:sessao`).
 - Rota `/dashboard` protegida por `ProtectedRoute`: sem sessão, redireciona para `/login` e volta ao destino original após entrar.
-- Logout disponível no header e no dashboard.
+- Logout disponível no header, no menu lateral e no dashboard.
 - Dados de contas salvos em `react-lab:usuarios` — é uma simulação local, sem backend.
 
 **Conta de demonstração**
@@ -114,7 +125,8 @@ Também é possível criar uma conta nova em `/cadastro`.
 ```text
 src/
 ├── components/
-│   ├── Layout.tsx            # Header, navegação, footer e outlet
+│   ├── Layout.tsx            # Header, menu lateral, footer e outlet
+│   ├── AuthAside.tsx         # Painel visual compartilhado de login/cadastro
 │   ├── PageHeader.tsx        # Cabeçalho reutilizável das páginas
 │   ├── ProtectedRoute.tsx    # Guarda de rota autenticada
 │   └── todo/

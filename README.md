@@ -14,6 +14,8 @@ Repositório com projetos de estudo organizados por pasta.
 
 Projetos de React organizados por nível: To-Do List interativa, contador, calculadora, buscador de CEP, previsão do tempo e autenticação com rotas protegidas.
 
+A interface usa uma identidade visual inspirada no portal Sala do Futuro, com header branco, menu lateral, cards claros e a paleta azul institucional. O conteúdo e os projetos são originais.
+
 ```bash
 cd react-lab
 npm install

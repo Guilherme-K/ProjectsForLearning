@@ -13,6 +13,7 @@ import {
   UserPlus,
 } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
+import { AuthAside } from '../components/AuthAside'
 
 export function RegisterPage() {
   const { usuario, registrar, carregando } = useAuth()
@@ -67,13 +68,16 @@ export function RegisterPage() {
 
   return (
     <div className="auth-page">
-      <div className="auth-container">
-        <Link to="/" className="auth-back">
-          <ChevronLeft size={16} aria-hidden="true" />
-          Voltar ao início
-        </Link>
+      <div className="auth-shell">
+        <AuthAside />
 
-        <section className="panel auth-card">
+        <div className="auth-container">
+          <Link to="/" className="auth-back">
+            <ChevronLeft size={16} aria-hidden="true" />
+            Voltar ao início
+          </Link>
+
+          <section className="panel auth-card">
           <span className="auth-icon">
             <UserPlus size={26} aria-hidden="true" />
           </span>
@@ -186,6 +190,7 @@ export function RegisterPage() {
             Já tem uma conta? <Link to="/login">Entrar</Link>
           </p>
         </section>
+        </div>
       </div>
     </div>
   )

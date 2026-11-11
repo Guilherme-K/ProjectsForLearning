@@ -17,6 +17,7 @@ import {
   ShieldCheck,
 } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
+import { AuthAside } from '../components/AuthAside'
 
 export function LoginPage() {
   const { usuario, login, carregando } = useAuth()
@@ -64,13 +65,16 @@ export function LoginPage() {
 
   return (
     <div className="auth-page">
-      <div className="auth-container">
-        <Link to="/" className="auth-back">
-          <ChevronLeft size={16} aria-hidden="true" />
-          Voltar ao início
-        </Link>
+      <div className="auth-shell">
+        <AuthAside />
 
-        <section className="panel auth-card">
+        <div className="auth-container">
+          <Link to="/" className="auth-back">
+            <ChevronLeft size={16} aria-hidden="true" />
+            Voltar ao início
+          </Link>
+
+          <section className="panel auth-card">
           <span className="auth-icon">
             <ShieldCheck size={26} aria-hidden="true" />
           </span>
@@ -167,6 +171,7 @@ export function LoginPage() {
             Ainda não tem conta? <Link to="/cadastro">Criar conta</Link>
           </p>
         </section>
+        </div>
       </div>
     </div>
   )

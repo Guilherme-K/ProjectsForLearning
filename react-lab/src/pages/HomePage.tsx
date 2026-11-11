@@ -5,12 +5,16 @@ import {
   Check,
   CheckCircle2,
   CloudSun,
+  Compass,
+  ExternalLink,
+  GraduationCap,
   Hash,
+  Layers,
   ListTodo,
   MapPin,
   ShieldCheck,
   Sparkles,
-  TrendingUp,
+  Wifi,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
@@ -23,6 +27,13 @@ interface Recurso {
   tom: string
 }
 
+interface Indicador {
+  valor: string
+  rotulo: string
+  icone: LucideIcon
+  tom: string
+}
+
 const recursos: Recurso[] = [
   {
     para: '/tarefas',
@@ -31,7 +42,7 @@ const recursos: Recurso[] = [
       'Adicione, conclua, remova e filtre tarefas. O projeto principal para dominar useState, componentes e eventos.',
     nivel: 'Iniciante',
     icone: ListTodo,
-    tom: 'violet',
+    tom: 'blue',
   },
   {
     para: '/contador',
@@ -40,7 +51,7 @@ const recursos: Recurso[] = [
       'Incremente, decremente e reinicie um valor. O exercício mais direto para entender o estado no React.',
     nivel: 'Iniciante',
     icone: Hash,
-    tom: 'blue',
+    tom: 'teal',
   },
   {
     para: '/calculadora',
@@ -76,8 +87,15 @@ const recursos: Recurso[] = [
       'Cadastro, login, contexto de autenticação e rotas privadas com redirecionamento inteligente.',
     nivel: 'Avançado',
     icone: ShieldCheck,
-    tom: 'pink',
+    tom: 'navy',
   },
+]
+
+const indicadores: Indicador[] = [
+  { valor: '6', rotulo: 'Projetos práticos', icone: Layers, tom: 'blue' },
+  { valor: '3', rotulo: 'Níveis de desafio', icone: GraduationCap, tom: 'teal' },
+  { valor: '2', rotulo: 'APIs públicas', icone: Wifi, tom: 'green' },
+  { valor: '100%', rotulo: 'Salvo no navegador', icone: ShieldCheck, tom: 'orange' },
 ]
 
 function classeDoNivel(nivel: Recurso['nivel']): string {
@@ -100,20 +118,19 @@ export function HomePage() {
   return (
     <div className="home">
       <div className="container">
-        <section className="hero">
-          <div className="hero-content">
+        <section className="welcome">
+          <div className="welcome-content">
             <span className="eyebrow">
               <Sparkles size={14} aria-hidden="true" />
-              React + TypeScript
+              Sala do Futuro · React Lab
             </span>
 
             <h1>
-              Aprenda React construindo{' '}
-              <span className="gradient-text">projetos de verdade.</span>
+              Olá! Vamos aprender React <span className="text-highlight">na prática</span>?
             </h1>
 
             <p>
-              Uma coleção prática com os níveis iniciante, intermediário e avançado:
+              Este é o seu espaço de estudos: uma trilha com projetos reais que vão
               da primeira lista de tarefas até autenticação com rotas protegidas.
             </p>
 
@@ -126,74 +143,99 @@ export function HomePage() {
                 Explorar projetos
               </a>
             </div>
-
-            <ul className="hero-checks">
-              <li>
-                <CheckCircle2 size={17} aria-hidden="true" />
-                Componentes e useState
-              </li>
-              <li>
-                <CheckCircle2 size={17} aria-hidden="true" />
-                Consumo de APIs
-              </li>
-              <li>
-                <CheckCircle2 size={17} aria-hidden="true" />
-                Rotas protegidas
-              </li>
-            </ul>
           </div>
 
-          <div className="hero-visual" aria-hidden="true">
-            <div className="floating-card todo-preview">
-              <div className="preview-head">
-                <span className="preview-dot" />
-                Minhas tarefas
-                <span className="preview-badge">3</span>
-              </div>
-              <div className="preview-item done">
-                <span className="mini-check">
-                  <Check size={13} strokeWidth={3} />
-                </span>
-                <span>Estudar useState</span>
-              </div>
-              <div className="preview-item done">
-                <span className="mini-check">
-                  <Check size={13} strokeWidth={3} />
-                </span>
-                <span>Componentizar a lista</span>
-              </div>
-              <div className="preview-item">
-                <span className="mini-check" />
-                <span>Consumir a API ViaCEP</span>
-              </div>
+          <div className="welcome-card" aria-label="Resumo da trilha">
+            <span className="welcome-card-icon">
+              <Compass size={22} aria-hidden="true" />
+            </span>
+            <strong>Sua trilha de aprendizagem</strong>
+            <p>6 projetos guiados, do useState às rotas protegidas.</p>
+            <div className="welcome-progress">
+              <span>Progresso da trilha</span>
+              <strong>0 de 6</strong>
             </div>
-
-            <div className="floating-card stat-preview">
-              <TrendingUp size={22} />
-              <div>
-                <strong>6 projetos</strong>
-                <span>para praticar</span>
-              </div>
+            <div className="progress-track">
+              <div className="progress-fill" style={{ width: '0%' }} />
             </div>
           </div>
         </section>
-      </div>
 
-      <section id="recursos" className="section">
-        <div className="container">
+        <section className="stat-row" aria-label="Resumo do laboratório">
+          {indicadores.map(({ valor, rotulo, icone: Icone, tom }) => (
+            <article key={rotulo} className="stat-card">
+              <span className={`stat-icon tone-${tom}`}>
+                <Icone size={20} aria-hidden="true" />
+              </span>
+              <div>
+                <strong>{valor}</strong>
+                <span>{rotulo}</span>
+              </div>
+            </article>
+          ))}
+        </section>
+
+        <section className="portal-hero">
+          <div className="portal-hero-content">
+            <span className="portal-badge">
+              <Sparkles size={14} aria-hidden="true" />
+              Trilha em destaque
+            </span>
+            <h2>Comece pela To-Do List e evolua até rotas protegidas</h2>
+            <p>
+              Cada projeto funciona de verdade no navegador e explora um conjunto
+              diferente de conceitos: estado, componentes, eventos, APIs e
+              autenticação.
+            </p>
+            <Link to="/tarefas" className="btn btn-light">
+              Abrir To-Do List
+              <ArrowRight size={17} aria-hidden="true" />
+            </Link>
+          </div>
+
+          <div className="portal-hero-panel" aria-hidden="true">
+            <div className="preview-head">
+              <span className="preview-dot" />
+              Minhas tarefas
+              <span className="preview-badge">3</span>
+            </div>
+            <div className="preview-item done">
+              <span className="mini-check">
+                <Check size={13} strokeWidth={3} />
+              </span>
+              <span>Estudar useState</span>
+            </div>
+            <div className="preview-item done">
+              <span className="mini-check">
+                <Check size={13} strokeWidth={3} />
+              </span>
+              <span>Componentizar a lista</span>
+            </div>
+            <div className="preview-item">
+              <span className="mini-check" />
+              <span>Consumir a API ViaCEP</span>
+            </div>
+          </div>
+        </section>
+
+        <section id="recursos" className="section">
           <div className="section-head">
             <div>
-              <span className="eyebrow">Trilha prática</span>
+              <span className="section-kicker">Projetos</span>
               <h2>Escolha um projeto e comece</h2>
-              <p>Cada página funciona de verdade e explora um conjunto diferente de conceitos.</p>
+              <p>
+                Cada página funciona de verdade e explora um conjunto diferente de
+                conceitos.
+              </p>
             </div>
+            <span className="section-count">6 projetos disponíveis</span>
           </div>
 
           <div className="feature-grid">
             {recursos.map(({ para, titulo, descricao, nivel, icone: Icone, tom }) => (
               <Link key={para} to={para} className="feature-card">
                 <span className={`feature-icon tone-${tom}`}>
-                  <Icone size={23} aria-hidden="true" />
+                  <Icone size={22} aria-hidden="true" />
                 </span>
 
                 <div>
@@ -214,18 +256,45 @@ export function HomePage() {
               </Link>
             ))}
           </div>
+        </section>
 
-          <div className="stack-strip" aria-label="Tecnologias usadas">
-            <span className="stack-label">Stack do projeto</span>
-            {tecnologias.map((tecnologia) => (
-              <span key={tecnologia} className="stack-item">
-                <span className="stack-dot" aria-hidden="true" />
-                {tecnologia}
-              </span>
-            ))}
+        <section className="inspiration-note">
+          <span className="inspiration-icon">
+            <Compass size={22} aria-hidden="true" />
+          </span>
+          <div>
+            <strong>Inspirado na Sala do Futuro</strong>
+            <p>
+              A identidade visual deste laboratório foi inspirada no portal Sala do
+              Futuro, da Secretaria da Educação do Estado de São Paulo. Todo o
+              conteúdo e os projetos são originais deste estudo de React.
+            </p>
           </div>
+          <a
+            className="inspiration-link"
+            href="https://saladofuturo.educacao.sp.gov.br/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Visitar portal
+            <ExternalLink size={15} aria-hidden="true" />
+          </a>
+        </section>
+
+        <div className="stack-strip" aria-label="Tecnologias usadas">
+          <span className="stack-label">Stack do projeto</span>
+          {tecnologias.map((tecnologia) => (
+            <span key={tecnologia} className="stack-item">
+              <span className="stack-dot" aria-hidden="true" />
+              {tecnologia}
+            </span>
+          ))}
+          <span className="stack-check">
+            <CheckCircle2 size={15} aria-hidden="true" />
+            APIs públicas sem chave
+          </span>
         </div>
-      </section>
+      </div>
     </div>
   )
 }
