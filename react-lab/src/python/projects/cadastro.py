@@ -57,12 +57,41 @@ def remover():
     print("ID não encontrado.")
 
 
+def buscar_por_id():
+    entrada = input("ID para buscar: ").strip()
+    if not entrada.isdigit():
+        print("Digite um ID numérico.")
+        return
+
+    identificador = int(entrada)
+    for registro in registros:
+        if registro["id"] == identificador:
+            print(f"#{registro['id']}  {registro['nome']}  ({registro['idade']} anos)")
+            return
+
+    print("ID não encontrado.")
+
+
+def resumo():
+    print("\n--- Resumo do cadastro ---")
+    print(f"Total de registros: {len(registros)}")
+
+    if not registros:
+        print("Nenhum registro cadastrado.")
+        return
+
+    primeiro = registros[0]
+    ultimo = registros[-1]
+    print(f"Primeiro cadastro: #{primeiro['id']} - {primeiro['nome']}")
+    print(f"Último cadastro: #{ultimo['id']} - {ultimo['nome']}")
+
+
 print("=" * 46)
 print("  Cadastro em memória")
 print("=" * 46)
 
 while True:
-    print("\n1 - Listar  2 - Adicionar  3 - Remover  4 - Sair")
+    print("\n1 - Listar  2 - Adicionar  3 - Remover  4 - Sair  5 - Buscar por ID  6 - Resumo")
     opcao = input("Escolha uma opção: ").strip()
 
     if opcao == "1":
@@ -74,5 +103,9 @@ while True:
     elif opcao == "4":
         print("Encerrando. Os dados foram perdidos, pois ficam em memória.")
         break
+    elif opcao == "5":
+        buscar_por_id()
+    elif opcao == "6":
+        resumo()
     else:
         print("Opção inválida.")
