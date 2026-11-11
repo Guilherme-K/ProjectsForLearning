@@ -8,6 +8,7 @@ import { CounterPage } from './pages/CounterPage'
 import { CalculatorPage } from './pages/CalculatorPage'
 import { CepPage } from './pages/CepPage'
 import { WeatherPage } from './pages/WeatherPage'
+import { PythonPage } from './pages/PythonPage'
 import { LoginPage } from './pages/LoginPage'
 import { RegisterPage } from './pages/RegisterPage'
 import { DashboardPage } from './pages/DashboardPage'
@@ -29,6 +30,7 @@ export default function App() {
               <Route path="calculadora" element={<CalculatorPage />} />
               <Route path="cep" element={<CepPage />} />
               <Route path="clima" element={<WeatherPage />} />
+              <Route path="python" element={<PythonPage />} />
               <Route path="dashboard" element={<DashboardPage />} />
             </Route>
 

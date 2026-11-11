@@ -20,6 +20,7 @@ const linksProjetos: LinkNavegacao[] = [
   { para: '/calculadora', rotulo: 'Calculadora', icone: 'fa-calculator' },
   { para: '/cep', rotulo: 'CEP', icone: 'fa-map-pin' },
   { para: '/clima', rotulo: 'Clima', icone: 'fa-cloud-sun' },
+  { para: '/python', rotulo: 'Projetos Python', icone: 'fa-terminal' },
 ]
 
 function obterIniciais(nome: string): string {

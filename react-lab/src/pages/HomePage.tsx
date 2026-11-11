@@ -326,6 +326,26 @@ export function HomePage() {
           )}
         </section>
 
+        {usuario && (
+          <Link to="/python" className="python-callout">
+            <span className="python-callout-icon">
+              <Icone nome="fa-terminal" tamanho={22} />
+            </span>
+            <span className="python-callout-text">
+              <span className="section-kicker">Novo · Python</span>
+              <strong>Projetos Python com terminal interativo</strong>
+              <p>
+                Execute Python de verdade no navegador e responda ao input() passo a
+                passo, em arquivos separados das atividades da pasta python/.
+              </p>
+            </span>
+            <span className="python-callout-action">
+              Abrir terminal
+              <Icone nome="fa-arrow-right" tamanho={16} />
+            </span>
+          </Link>
+        )}
+
         <section className="inspiration-note">
           <span className="inspiration-icon">
             <Icone nome="fa-compass" tamanho={22} />

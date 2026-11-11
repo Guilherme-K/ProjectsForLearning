@@ -8,6 +8,8 @@ A identidade visual foi inspirada no portal [Sala do Futuro](https://saladofutur
 
 As atividades só ficam disponíveis com uma sessão ativa: sem login, a home exibe um convite para entrar e as rotas dos projetos redirecionam para `/login`, voltando ao destino original após a autenticação.
 
+Além dos projetos React, o laboratório tem uma área separada de **Python no navegador** (`/python`): um terminal que executa Python de verdade com Pyodide e permite responder a cada `input()` passo a passo. Os arquivos dessa área ficam em `src/python/projects/` e não se misturam com as atividades da pasta `python/` do repositório.
+
 ## Stack
 
 - React 19 + TypeScript
@@ -15,6 +17,7 @@ As atividades só ficam disponíveis com uma sessão ativa: sem login, a home ex
 - React Router
 - Font Awesome 7 (ícones, via CDN da cdnjs)
 - Open Sans (Google Fonts)
+- Pyodide 314.0.7 (Python 3 no navegador, via CDN da jsDelivr)
 - CSS puro e responsivo
 
 ## Design
@@ -42,6 +45,8 @@ Outros comandos:
 npm run build    # checagem de tipos + build de produção
 npm run preview  # serve o build de produção localmente
 ```
+
+O terminal Python usa `SharedArrayBuffer` para bloquear o Web Worker enquanto espera a resposta do usuário. Para isso, o `vite.config.ts` já envia os cabeçalhos `Cross-Origin-Opener-Policy`, `Cross-Origin-Embedder-Policy` e `Cross-Origin-Resource-Policy` em `dev` e `preview`. Ao publicar em outra hospedagem, configure os mesmos cabeçalhos; sem eles, a página continua funcionando, mas cada `input()` é pedido em uma janela do navegador (`window.prompt`).
 
 ## Níveis e funcionalidades
 
@@ -107,6 +112,36 @@ Senha:  123456
 
 Também é possível criar uma conta nova em `/cadastro`.
 
+## Python no navegador
+
+A página `/python` executa **Python 3.14 de verdade** no navegador com [Pyodide](https://pyodide.org/), sem backend. O programa roda em um Web Worker e o terminal entrega cada `input()` ao usuário antes de continuar a execução.
+
+Projetos disponíveis:
+
+- `ola-mundo.py` — variáveis, `input()`, f-strings e `try/except`.
+- `calculadora.py` — menu com quatro operações, repetição e leitura de decimais.
+- `adivinhacao.py` — jogo com `random`, dicas de maior/menor e contador de tentativas.
+- `cadastro.py` — listas, dicionários e menu para listar, adicionar e remover registros em memória.
+
+Recursos do terminal:
+
+- **Executar** inicia o programa e habilita o campo de entrada quando ele pede um valor.
+- **Parar** encerra o Worker e libera uma nova execução.
+- **Limpar** apaga a saída quando não há programa em execução.
+- Prévia do código-fonte de cada arquivo.
+- Limite de saída para evitar travamentos por programas muito verbosos.
+
+Os arquivos ficam em `src/python/projects/` e são carregados como texto (`?raw`). Eles são independentes de `python/atv.py`, que continua sendo a atividade em Python executada localmente, sem interface web.
+
+### Como o `input()` funciona
+
+1. O Python chama `input()` dentro do Worker.
+2. O Worker publica um pedido de entrada e bloqueia com `Atomics.wait`.
+3. A thread principal mostra o campo, recebe a resposta e grava os bytes em um `SharedArrayBuffer`.
+4. O Worker é acordado com `Atomics.notify` e devolve a linha ao Python.
+
+Esse caminho exige `crossOriginIsolated`. Quando o isolamento não está disponível, o motor cai no modo de compatibilidade e usa `window.prompt` para cada entrada.
+
 ## Rotas
 
 As rotas de atividades e o dashboard são protegidas por `ProtectedRoute`. Sem sessão ativa, o acesso redireciona para `/login` e retorna ao destino original após a autenticação.
@@ -119,6 +154,7 @@ As rotas de atividades e o dashboard são protegidas por `ProtectedRoute`. Sem s
 | `/calculadora` | Calculadora funcional           | Protegida |
 | `/cep`         | Buscador de CEP (ViaCEP)        | Protegida |
 | `/clima`       | Previsão do tempo (Open-Meteo)  | Protegida |
+| `/python`      | Python no navegador (Pyodide)   | Protegida |
 | `/login`       | Login                           | Pública   |
 | `/cadastro`    | Cadastro                        | Pública   |
 | `/dashboard`   | Dashboard protegido             | Protegida |
@@ -145,6 +181,11 @@ src/
 ├── hooks/
 │   └── useLocalStorage.ts    # Persistência genérica
 ├── pages/                    # Uma página por projeto
+├── python/
+│   ├── engine.ts             # Motor Pyodide (Worker + fallback)
+│   ├── pyodide-worker.js     # Worker que executa o Python
+│   ├── projects.ts           # Registro dos projetos Python
+│   └── projects/             # Arquivos .py do terminal web
 ├── App.tsx                   # Rotas
 ├── main.tsx                  # Entrada da aplicação
 ├── types.ts                  # Tipos compartilhados
@@ -161,4 +202,6 @@ src/
 - Requisições com `fetch`, estados de carregamento e erro
 - Rotas com React Router, incluindo rotas protegidas
 - Persistência com `localStorage`
+- Web Worker, `SharedArrayBuffer` e `Atomics` para entrada interativa
+- Integração com Pyodide para executar Python no navegador
 - Layout responsivo (mobile, tablet e desktop)
